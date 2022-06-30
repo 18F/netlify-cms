@@ -45,12 +45,12 @@ jobs:
         run: yarn test:ci
         env:
           CI: true
-          NODE_OPTIONS: --max-old-space-size=4096
+          NODE_OPTIONS: --max-old-space-size=4096 --openssl-legacy-provider
         if: ${{ needs.changes.outputs.cms == 'true' }}
       - name: build demo site
         run: yarn build:demo
         env:
-          NODE_OPTIONS: --max-old-space-size=4096
+          NODE_OPTIONS: --max-old-space-size=4096 --openssl-legacy-provider
         if: ${{ needs.changes.outputs.cms == 'true' }}
       - uses: actions/upload-artifact@master
         with:
@@ -95,7 +95,7 @@ jobs:
         env:
           IS_FORK: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork == true }}
           CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
-          NODE_OPTIONS: --max-old-space-size=4096
+          NODE_OPTIONS: --max-old-space-size=4096 --openssl-legacy-provider
           MACHINE_COUNT: 8
           MACHINE_INDEX: ${{ matrix.machine }}
         if: ${{ needs.changes.outputs.cms == 'true' }}
